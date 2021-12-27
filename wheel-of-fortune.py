@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
+# In[261]:
 
 
 import random #importing packages and initializing values for the game
@@ -12,14 +12,14 @@ finalscoreList = [0, 0, 0]
 vowels = {'a', 'e', 'i', 'o', 'u'}
 
 
-# In[180]:
+# In[262]:
 
 
 def has_numbers(string): #this function helps get rid of words with numbers in them
     return any(char.isdigit() for char in string)
 
 
-# In[181]:
+# In[263]:
 
 
 answerFile = open("words-list.txt", 'r')
@@ -38,7 +38,7 @@ for i in range(0, len(answerList) - 1):#converts everything to lowercase
     answerList[i] = answerList[i].lower()
 
 
-# In[259]:
+# In[276]:
 
 
 print("-------------------------------------")
@@ -73,12 +73,12 @@ firstPlace = max(finalScoreList)
 firstPlaceIndex = finalScoreList.index()
 
 print("-------------------------------------")
-print("      Wheel of Fortune: Round 2      ")
+print("      Wheel of Fortune: Final Round      ")
 print("-------------------------------------")
 finalRound(firstPlaceIndex)
 
 
-# In[258]:
+# In[275]:
 
 
 def playersTurn(player):
@@ -136,19 +136,18 @@ def playersTurn(player):
                         print("Letter already chosen")
                         break
                     else:
-                        selectedLetters.append(attempt)
                         print(f"Chosen letters: {selectedLetters}")
                         if attempt in vowels:
                             print('You bought a vowel for $250')
                             if playerScoreDict[player] < 250:
                                 print("Sorry, you don't have enough money to buy a vowel")
-                                chosenAnswerList.pop()
                                 if player + 1 > 3:
                                     player = 1
                                 else:
                                     player = player + 1
                                 break
                             else:
+                                selectedLetters.append(attempt)
                                 playerScoreDict[player] = playerScoreDict[player] - 250
                             if attempt in chosenAnswerList:
                                 print('Correct Choice!')
@@ -171,9 +170,15 @@ def playersTurn(player):
                         else:
                             print('this is a constonant')
                             if attempt in chosenAnswerList:
+                                selectedLetters.append(attempt)
                                 print('Correct Choice!')
                             else:
+                                selectedLetters.append(attempt)
                                 print('Incorrect choice')
+                                if player + 1 > 3:
+                                    player = 1
+                                else:
+                                    player = player + 1
                                 break
                             for count, letter in enumerate(chosenAnswerList):
                                 if chosenAnswerList[count] == attempt:
@@ -187,7 +192,7 @@ def playersTurn(player):
     
 
 
-# In[238]:
+# In[265]:
 
 
 def attemptWord(player, word, playing):
@@ -205,7 +210,7 @@ def attemptWord(player, word, playing):
     
 
 
-# In[239]:
+# In[266]:
 
 
 def attemptChar(player, attempt, spin):
@@ -224,7 +229,6 @@ def attemptChar(player, attempt, spin):
             print("Letter already chosen")
             break
         else:
-            selectedLetters.append(attempt)
             print(f"Chosen letters: {selectedLetters}")
             if attempt in vowels:
                 print('You bought a vowel for $250')
@@ -233,6 +237,7 @@ def attemptChar(player, attempt, spin):
                     chosenAnswerList.pop()
                     break
                 else:
+                    selectedLetters.append(attempt)
                     playerScoreDict[player] = playerScoreDict[player] - 250
                 if attempt in chosenAnswerList:
                     print('Correct Choice!')
@@ -265,7 +270,7 @@ def attemptChar(player, attempt, spin):
                 print(playingField)
 
 
-# In[251]:
+# In[267]:
 
 
 def finalRound(player):
@@ -323,6 +328,12 @@ def finalRound(player):
             break
     if answerCounter == len(chosenAnswerList):
         print("Congratulations! You chose the correct word")
+
+
+# In[ ]:
+
+
+
 
 
 # In[ ]:
